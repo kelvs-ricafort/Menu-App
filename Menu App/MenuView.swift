@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct MenuView: View {
-    var menuItems: [MenuItem] = [MenuItem]()
+    @State var menuItems: [MenuItem] = [MenuItem]()
+    var dataService = DataService()
+    
     var body: some View {
         List(menuItems) { item in
             HStack {
@@ -27,6 +29,10 @@ struct MenuView: View {
                 .opacity(0.1)
             )
         }
+        .onAppear(perform: {
+            // Call data service
+            menuItems = dataService.getData()
+        })
         .listStyle(.plain)
     }
 }
